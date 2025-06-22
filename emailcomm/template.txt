@@ -1,0 +1,6 @@
+Hello {{name}},
+
+This is a test message sent via our Python bulk email sender.
+
+Regards,  
+Your Team

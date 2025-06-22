@@ -1,0 +1,10 @@
+Subject: Hello {{malar}}, your offer is here!
+
+Hi {{malar}},
+
+We’re excited to bring you a special offer just for {{email}}.
+Visit our site and claim it today!
+
+Best regards,
+Your Team
+
