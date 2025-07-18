@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Flask Mini Project{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav><a href="/">Home</a> | <a href="/portfolio">Portfolio</a> | <a href="/books">Books</a></nav>
+  <hr>
+  {% block content %}{% endblock %}
+  <hr>
+  <footer>© 2025 Flask Mini Projects</footer>
+</body>
+</html>
