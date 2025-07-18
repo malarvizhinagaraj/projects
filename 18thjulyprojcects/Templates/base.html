@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Flask Project{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav>
+    <a href="/">Home</a> |
+    <a href="/portfolio">Portfolio</a> |
+    <a href="/greet/Guest">Greet</a> |
+    <a href="/feedback">Feedback</a> |
+    <a href="/contact">Contact</a> |
+    <a href="/calculator">Calculator</a>
+</nav>
+<hr>
+{% block content %}{% endblock %}
+</body>
+</html>

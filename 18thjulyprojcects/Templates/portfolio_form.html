@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Portfolio Generator</h2>
+<form method="post">
+    Name: <input type="text" name="name"><br>
+    Skills: <input type="text" name="skills"><br>
+    Bio: <textarea name="bio"></textarea><br>
+    <button type="submit">Generate</button>
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Greeting</h2>
+<p>
+    {% if lang == 'es' %}Hola {{ name }}!
+    {% elif lang == 'fr' %}Bonjour {{ name }}!
+    {% else %}Hello {{ name }}!
+    {% endif %}
+</p>
+{% endblock %}
