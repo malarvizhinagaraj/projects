@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Student Result{% endblock %}
+{% block content %}
+<h2>Result for {{ student.name }}</h2>
+<ul>
+  {% for subject, marks in student.subjects.items() %}
+    <li>{{ subject }}: {{ marks }}</li>
+  {% endfor %}
+</ul>
+<p>Grade: <span class="{% if student.grade == 'A' %}green{% elif student.grade == 'B' %}orange{% else %}red{% endif %}">{{ student.grade }}</span></p>
+{% endblock %}

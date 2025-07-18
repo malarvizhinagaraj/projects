@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Personal Portfolio{% endblock %}
+{% block content %}
+<h1>{{ name }}'s Portfolio</h1>
+<p>Skills:</p>
+<ul>
+  {% for skill in skills %}
+    <li>{{ skill }}</li>
+  {% endfor %}
+</ul>
+<p>Projects:</p>
+<ul>
+  {% for project in projects %}
+    <li>{{ project }}</li>
+  {% endfor %}
+</ul>
+{% if available %}
+  <p style="color: green;">Available for hire</p>
+{% endif %}
+<img src="{{ url_for('static', filename='images/profiles/user.png') }}" alt="Profile" width="100">
+{% endblock %}

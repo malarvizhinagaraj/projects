@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% block title %}Books Showcase{% endblock %}
+{% block content %}
+<h2>Book List</h2>
+{% if books %}
+  <ul>
+    {% for book in books %}
+      <li><strong>{{ book.name }}</strong> by {{ book.author }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No books available</p>
+{% endif %}
+{% endblock %}

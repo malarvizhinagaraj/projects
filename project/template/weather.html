@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Weather Report{% endblock %}
+{% block content %}
+<h2>Today's Weather</h2>
+<p>Temperature: {{ temperature }}°C</p>
+{% if condition == 'sun' %}
+  <img src="{{ url_for('static', filename='images/sun.png') }}" width="50">
+{% elif condition == 'rain' %}
+  <img src="{{ url_for('static', filename='images/rain.png') }}" width="50">
+{% endif %}
+{% if temperature > 30 %}
+  <p style="color:red;">Stay Hydrated!</p>
+{% endif %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
