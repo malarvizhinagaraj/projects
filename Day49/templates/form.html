@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Form</title>
+    <style>
+        .error { color: red; }
+        .success { color: green; }
+        .warning { color: orange; }
+        .invalid { border-color: red; }
+    </style>
+</head>
+<body>
+    <h2>User Form</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.csrf_token }}
+        {% for field in form %}
+            <p>
+                {{ field.label }}<br>
+                {{ field(class_='invalid' if field.errors else '') }}<br>
+                {% for error in field.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <p><input type="submit" value="Submit"></p>
+    </form>
+</body>
+</html>
+
