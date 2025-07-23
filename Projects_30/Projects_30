@@ -1,0 +1,171 @@
+from flask import Flask, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Sample demo data
+data = {
+    "projects": [{"id": 1, "title": "Portfolio", "tag": "web"}],
+    "posts": [{"id": 1, "title": "Hello Blog", "content": "First Post"}],
+    "events": [{"id": 1, "title": "Tech Meetup"}],
+    "tasks": [],
+    "questions": [{"q": "2+2?", "options": ["3", "4"], "answer": "4"}],
+    "feedbacks": [],
+    "recipes": [{"name": "Pasta", "category": "Italian"}],
+    "products": [{"id": 1, "name": "Shirt"}],
+    "votes": {"VSCode": 0, "PyCharm": 0},
+    "contacts": [{"name": "Alice", "city": "Chennai"}],
+    "expenses": [],
+    "pets": [{"name": "Buddy", "adopted": False}],
+    "grades": [],
+    "guests": [],
+    "reminders": [],
+    "subscribers": [],
+    "uploads": [],
+    "books": [{"title": "Flask 101", "rating": 5}],
+    "logs": [],
+    "slots": [{"id": 1, "status": "available"}],
+    "movies": [{"title": "Inception", "genre": "Sci-Fi"}],
+    "lost_items": [],
+    "jobs": [{"title": "Web Dev", "dept": "IT"}],
+    "appointments": [],
+    "survey": [],
+    "dictionary": {"hello": {"en": "Hello", "fr": "Bonjour"}},
+    "destinations": [{"place": "Paris", "region": "Europe"}],
+    "playlists": [{"name": "Workout Mix"}]
+}
+
+@app.route("/")
+def index():
+    return "Multi-Project Flask App Running"
+
+@app.route("/add-task", methods=["POST"])
+def add_task():
+    data["tasks"].append({"task": request.form["task"], "completed": False})
+    return "Task Added"
+
+@app.route("/quiz", methods=["GET", "POST"])
+def quiz():
+    if request.method == "POST":
+        ans = request.form.get("answer")
+        return "Correct" if ans == data["questions"][0]["answer"] else "Wrong"
+    return f"Question: {data['questions'][0]['q']}"
+
+@app.route("/submit-feedback", methods=["POST"])
+def submit_feedback():
+    data["feedbacks"].append(request.form["message"])
+    return redirect("/thankyou")
+
+@app.route("/recipes")
+def show_recipes():
+    cat = request.args.get("category")
+    recipes = [r for r in data["recipes"] if not cat or r["category"] == cat]
+    return {"recipes": recipes}
+
+@app.route("/vote", methods=["POST"])
+def vote():
+    option = request.form["vote"]
+    if option in data["votes"]:
+        data["votes"][option] += 1
+    return {"votes": data["votes"]}
+
+@app.route("/add-expense", methods=["POST"])
+def add_expense():
+    data["expenses"].append({"item": request.form["item"], "category": request.form["category"]})
+    return "Expense Added"
+
+@app.route("/adopt", methods=["POST"])
+def adopt():
+    pet_name = request.form["name"]
+    for pet in data["pets"]:
+        if pet["name"] == pet_name:
+            pet["adopted"] = True
+    return "Adopted!"
+
+@app.route("/calculate-grade", methods=["POST"])
+def calculate_grade():
+    score = int(request.form["score"])
+    grade = "A" if score >= 90 else "B" if score >= 75 else "C"
+    return f"Grade: {grade}"
+
+@app.route("/guestbook", methods=["POST"])
+def guestbook():
+    data["guests"].append(request.form["entry"])
+    return "Guestbook Entry Added"
+
+@app.route("/add-reminder", methods=["POST"])
+def add_reminder():
+    data["reminders"].append(request.form["reminder"])
+    return "Reminder Added"
+
+@app.route("/subscribe", methods=["POST"])
+def subscribe():
+    data["subscribers"].append(request.form["email"])
+    return "Subscribed"
+
+@app.route("/upload-file", methods=["POST"])
+def upload_file():
+    data["uploads"].append(request.form["filename"])
+    return "File Uploaded"
+
+@app.route("/book-review", methods=["GET"])
+def book_review():
+    rating = request.args.get("rating")
+    books = [b for b in data["books"] if str(b["rating"]) == rating] if rating else data["books"]
+    return {"books": books}
+
+@app.route("/add-log", methods=["POST"])
+def add_log():
+    data["logs"].append(request.form["log"])
+    return "Workout Log Added"
+
+@app.route("/book-slot", methods=["POST"])
+def book_slot():
+    slot_id = int(request.form["id"])
+    for slot in data["slots"]:
+        if slot["id"] == slot_id:
+            slot["status"] = "booked"
+    return "Slot Booked"
+
+@app.route("/recommend-movie", methods=["GET"])
+def recommend_movie():
+    genre = request.args.get("genre")
+    movies = [m for m in data["movies"] if m["genre"] == genre] if genre else data["movies"]
+    return {"movies": movies}
+
+@app.route("/report-lost", methods=["POST"])
+def report_lost():
+    data["lost_items"].append(request.form["item"])
+    return "Reported"
+
+@app.route("/apply-job", methods=["POST"])
+def apply_job():
+    return "Application Received"
+
+@app.route("/add-appointment", methods=["POST"])
+def add_appointment():
+    data["appointments"].append(request.form["time"])
+    return "Appointment Scheduled"
+
+@app.route("/submit-survey", methods=["POST"])
+def submit_survey():
+    data["survey"].append(request.form["choice"])
+    return "Survey Submitted"
+
+@app.route("/define", methods=["POST"])
+def define():
+    word = request.form["word"]
+    lang = request.args.get("lang", "en")
+    return data["dictionary"].get(word, {}).get(lang, "Not Found")
+
+@app.route("/add-destination", methods=["POST"])
+def add_destination():
+    data["destinations"].append({"place": request.form["place"], "region": request.form["region"]})
+    return "Destination Added"
+
+@app.route("/add-playlist", methods=["POST"])
+def add_playlist():
+    data["playlists"].append({"name": request.form["name"]})
+    return "Playlist Created"
+
+if __name__ == "__main__":
+    app.run(debug=True)
